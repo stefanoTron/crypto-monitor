@@ -1,15 +1,22 @@
-# ₿ Crypto Monitor
 
+<h1 align="center">Crypto Monitor</h1>
+
+<p align="center">
 The macOS app for hodlers and occasional traders. Always have an eye on your investments and never miss a price again!
-
-
-- choose between Bitstamp, Bitfinex or Coinbase Pro
-- BTC, LTC and ETH to EUR or USD
-- realtime updates
-
-![](screen.png)
-
-Based on Electron and Next.js
+<ul><li>choose between Bitstamp, Bitfinex or Coinbase Pro</li>
+<li>BTC, LTC and ETH to EUR or USD</li>
+<li>realtime updates</li>
+</ul>
+<br>
+<p align="center">
+<img width="600" src="https://raw.githubusercontent.com/littletower/crypto-monitor/master/screen.png"/>
+</p>
+<p align="center">
+<a href="https://github.com/littletower/crypto-monitor/releases/download/1.0.0/Crypto.Monitor-1.0.0.dmg">Download Crypto Monitor</a>
+</p>
+<br>
+<p align="center">Based on Electron and Next.js
+</p>
 
 # 📋 TODO
 
@@ -38,3 +45,5 @@ If you like this project and would like to encourage the creator, you can contri
 [![Donate with Bitcoin](https://en.cryptobadges.io/badge/small/1Py7RRgDXQfH3XssdqJk3WcHr2nhtEfybE)](https://en.cryptobadges.io/donate/1Py7RRgDXQfH3XssdqJk3WcHr2nhtEfybE)
 
 [![Donate with Ethereum](https://en.cryptobadges.io/badge/small/0x855Ea634bFc572653Fee0C66c4bC738d0B79f01F)](https://en.cryptobadges.io/donate/0x855Ea634bFc572653Fee0C66c4bC738d0B79f01F)
+
+https://tippin.me/@ste_lux
