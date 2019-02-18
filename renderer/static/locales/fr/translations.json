@@ -1,0 +1,9 @@
+{
+  "internet": "As-tu une connexion Internet?",
+  "language": "Langue",
+  "startup": "Lancer au démarrage",
+  "source": "Source",
+  "defaultcurrency": "Devise par défaut",
+  "options": "Options",
+  "quit": "Quitter"
+}

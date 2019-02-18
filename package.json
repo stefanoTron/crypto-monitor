@@ -1,0 +1,64 @@
+{
+  "name": "crypto-monitor",
+  "productName": "Crypto Monitor",
+  "version": "1.0.0",
+  "description":
+    "The app for hodlers and occasional traders, always have an eye on your investments and never miss a price again!",
+  "keywords": [
+    "crypto",
+    "bitstamp",
+    "bitcoin",
+    "macos",
+    "cryptocurrency",
+    "hodl",
+    "hodler",
+    "etherum",
+    "kraken",
+    "price",
+    "btc"
+  ],
+  "main": "main/index.js",
+  "scripts": {
+    "start": "electron --inspect=8000 .",
+    "build": "next build renderer && next export renderer",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "asar": true,
+    "files": ["**/*", "!.env", "!renderer", "renderer/out"],
+    "mac": {
+      "target": ["dmg", "zip"],
+      "icon": "./renderer/static/icon.icns"
+    }
+  },
+  "devDependencies": {
+    "devtron": "1.4.0",
+    "electron": "4.0.5",
+    "electron-builder": "^20.28.3",
+    "next": "5.1.0",
+    "react": "16.8.2",
+    "react-dom": "16.8.2"
+  },
+  "dependencies": {
+    "@haiku/littletower-close": "0.0.2",
+    "@haiku/littletower-settings3": "0.0.4",
+    "app-root-path": "2.1.0",
+    "auto-launch": "5.0.5",
+    "babel-plugin-inline-import": "3.0.0",
+    "bitfinex-api-node": "2.0.0-beta.1",
+    "bufferutil": "4.0.1",
+    "electron-debug": "2.1.0",
+    "electron-is-dev": "1.0.1",
+    "electron-next": "3.1.5",
+    "electron-store": "2.0.0",
+    "gdax": "0.8.0",
+    "i18next": "11.6.0",
+    "i18next-xhr-backend": "1.5.1",
+    "isomorphic-unfetch": "3.0.0",
+    "pusher-js": "4.4.0",
+    "react-i18next": "7.11.0",
+    "utf-8-validate": "5.0.2",
+    "ws": "6.1.4",
+    "xhr2": "0.1.4"
+  }
+}
