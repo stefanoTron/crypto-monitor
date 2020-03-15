@@ -1,10 +1,8 @@
 import { ipcRenderer, ipcMain } from "electron";
-import PusherJS from "pusher-js";
 import React, { Component } from "react";
-import Header from "../components/Header";
-import Options from "../components/Options";
-import globalStyle from "../css/styles.js";
+
 import GenericMain from "../components/GenericMain";
+const WebSocket = require("ws");
 
 class BitstampMain extends Component {
   constructor(props) {
@@ -18,31 +16,75 @@ class BitstampMain extends Component {
       ethusd: 0
     };
   }
+
+  ws = new WebSocket("wss://ws.bitstamp.net");
+
   componentDidMount() {
     this.props.checkIfOnline();
 
-    this.pusherClient = new PusherJS("de504dc5763aeef9ff52", {
-      encrypted: true
+    this.ws.on("open", () => {
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades_btceur"
+          }
+        })
+      );
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades"
+          }
+        })
+      );
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades_ltceur"
+          }
+        })
+      );
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades_ltusd"
+          }
+        })
+      );
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades_ethusd"
+          }
+        })
+      );
+      this.ws.send(
+        JSON.stringify({
+          event: "bts:subscribe",
+          data: {
+            channel: "live_trades_etheur"
+          }
+        })
+      );
     });
 
-    //subscribe to Bitstamp's channels
-    this.channel = this.pusherClient.subscribe("live_trades_btceur");
-    this.channelUsd = this.pusherClient.subscribe("live_trades");
+    this.ws.on("message", data => {
+      const lastdata = JSON.parse(data);
+      if (lastdata.data && !isNaN(lastdata.data.price)) {
+        this.handleUpdate(lastdata.data, this.detectCoin(lastdata.channel));
+      }
+    });
+  }
 
-    this.channelLtc = this.pusherClient.subscribe("live_trades_ltceur");
-    this.channelLtcUsd = this.pusherClient.subscribe("live_trades_ltcusd");
-
-    this.channelEth = this.pusherClient.subscribe("live_trades_etheur");
-    this.channelEthUsd = this.pusherClient.subscribe("live_trades_ethusd");
-
-    this.channel.bind("trade", data => this.handleUpdate(data, "btceur"));
-    this.channelUsd.bind("trade", data => this.handleUpdate(data, "btcusd"));
-
-    this.channelLtc.bind("trade", data => this.handleUpdate(data, "ltceur"));
-    this.channelLtcUsd.bind("trade", data => this.handleUpdate(data, "ltcusd"));
-
-    this.channelEth.bind("trade", data => this.handleUpdate(data, "etheur"));
-    this.channelEthUsd.bind("trade", data => this.handleUpdate(data, "ethusd"));
+  detectCoin(channel) {
+    if (channel === "live_trades") return "btcusd";
+    let coin = channel.replace("live_trades_", "");
+    return coin;
   }
 
   componentWillUnmount() {
@@ -54,6 +96,56 @@ class BitstampMain extends Component {
     this.channelEthUsd.unbind();
     this.pusherClient.unsubscribe();
     this.pusherClient.disconnect();
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades_btceur"
+        }
+      })
+    );
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades"
+        }
+      })
+    );
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades_ltceur"
+        }
+      })
+    );
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades_ltcusd"
+        }
+      })
+    );
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades_ethusd"
+        }
+      })
+    );
+    this.ws.send(
+      JSON.stringify({
+        event: "bts:unsubscribe",
+        data: {
+          channel: "live_trades_etheur"
+        }
+      })
+    );
+
+    this.ws.terminate();
   }
 
   handleUpdate = (data, coin) => {
@@ -69,11 +161,9 @@ class BitstampMain extends Component {
     return (
       <div
         className={
-          this.props.hide ? (
-            "hide window-content slide-left"
-          ) : (
-            "window-content slide-left"
-          )
+          this.props.hide
+            ? "hide window-content slide-left"
+            : "window-content slide-left"
         }
       >
         <div className="pane-group">

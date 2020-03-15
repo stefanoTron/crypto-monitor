@@ -195,7 +195,11 @@ app-builder-lib@20.38.5, app-builder-lib@~20.38.5:
     semver "^5.6.0"
     temp-file "^3.3.2"
 
-app-root-path@2.1.0, app-root-path@>=2.0.1:
+app-root-path@3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-3.0.0.tgz#210b6f43873227e18a4b810a032283311555d5ad"
+
+app-root-path@>=2.0.1:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/app-root-path/-/app-root-path-2.1.0.tgz#98bf6599327ecea199309866e8140368fd2e646a"
 

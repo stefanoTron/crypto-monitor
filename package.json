@@ -2,8 +2,7 @@
   "name": "crypto-monitor",
   "productName": "Crypto Monitor",
   "version": "1.0.0",
-  "description":
-    "The app for hodlers and occasional traders, always have an eye on your investments and never miss a price again!",
+  "description": "The app for hodlers and occasional traders, always have an eye on your investments and never miss a price again!",
   "keywords": [
     "crypto",
     "bitstamp",
@@ -25,9 +24,17 @@
   },
   "build": {
     "asar": true,
-    "files": ["**/*", "!.env", "!renderer", "renderer/out"],
+    "files": [
+      "**/*",
+      "!.env",
+      "!renderer",
+      "renderer/out"
+    ],
     "mac": {
-      "target": ["dmg", "zip"],
+      "target": [
+        "dmg",
+        "zip"
+      ],
       "icon": "./renderer/static/icon.icns"
     }
   },
@@ -42,7 +49,7 @@
   "dependencies": {
     "@haiku/littletower-close": "0.0.2",
     "@haiku/littletower-settings3": "0.0.4",
-    "app-root-path": "2.1.0",
+    "app-root-path": "3.0.0",
     "auto-launch": "5.0.5",
     "babel-plugin-inline-import": "3.0.0",
     "bitfinex-api-node": "2.0.0-beta.1",

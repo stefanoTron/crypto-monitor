@@ -10,12 +10,13 @@ const {
   shell
 } = require("electron");
 const path = require("path");
+const { join } = require("path");
 const { format } = require("url");
 const { resolve } = require("app-root-path");
 
 const isDev = require("electron-is-dev");
 const prepareNext = require("electron-next");
-const assetsDirectory = path.join(__dirname, "../assets");
+const assetsDirectory = join(__dirname, "../assets");
 const AutoLaunch = require("auto-launch");
 const Store = require("electron-store");
 
@@ -155,13 +156,13 @@ const showWindow = () => {
 
 const updateImage = coin => {
   if (coin.indexOf("btc") >= 0) {
-    return path.join(assetsDirectory, "bitcoin.png");
+    return join(assetsDirectory, "bitcoin.png");
   }
   if (coin.indexOf("eth") >= 0) {
-    return path.join(assetsDirectory, "ethereum.png");
+    return join(assetsDirectory, "ethereum.png");
   }
   if (coin.indexOf("ltc") >= 0) {
-    return path.join(assetsDirectory, "litecoin.png");
+    return join(assetsDirectory, "litecoin.png");
   }
 };
 
