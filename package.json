@@ -18,7 +18,7 @@
   ],
   "main": "main/index.js",
   "scripts": {
-    "start": "electron --inspect=8000 .",
+    "start": "electron --inspect=8000 --enable-logging .",
     "build": "next build renderer && next export renderer",
     "dist": "npm run build && electron-builder"
   },
@@ -56,6 +56,7 @@
     "bufferutil": "4.0.1",
     "electron-debug": "2.1.0",
     "electron-is-dev": "1.0.1",
+    "electron-log": "4.1.0",
     "electron-next": "3.1.5",
     "electron-store": "2.0.0",
     "gdax": "0.8.0",

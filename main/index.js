@@ -48,7 +48,7 @@ if (store.get("start")) {
 //TODO support macOs Dark mode
 //systemPreferences.isDarkMode();
 
-require("electron-debug")({ showDevTools: "undocked" /* enabled: true*/ });
+require("electron-debug")({ showDevTools: "undocked", enabled: true });
 
 let tray = undefined;
 let window = undefined;

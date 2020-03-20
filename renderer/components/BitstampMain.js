@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 import GenericMain from "../components/GenericMain";
 const WebSocket = require("ws");
+let websocket = new WebSocket("wss://ws.bitstamp.net");
 
 class BitstampMain extends Component {
   constructor(props) {
@@ -17,13 +18,28 @@ class BitstampMain extends Component {
     };
   }
 
-  ws = new WebSocket("wss://ws.bitstamp.net");
-
   componentDidMount() {
-    this.props.checkIfOnline();
+    console.log("cdm");
+    this.initWebsocket();
+    //this.props.checkIfOnline();
+  }
 
-    this.ws.on("open", () => {
-      this.ws.send(
+  initWebsocket() {
+    websocket.on("error", e => {
+      //ws.isAlive = true;
+      console.log("error", e);
+    });
+
+    websocket.on("close", () => {
+      console.log("closed");
+      websocket = new WebSocket("wss://ws.bitstamp.net");
+      this.initWebsocket();
+      //this.unsubscribeChannels();
+    });
+
+    websocket.on("open", () => {
+      console.log("opened");
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -31,7 +47,7 @@ class BitstampMain extends Component {
           }
         })
       );
-      this.ws.send(
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -39,7 +55,7 @@ class BitstampMain extends Component {
           }
         })
       );
-      this.ws.send(
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -47,7 +63,7 @@ class BitstampMain extends Component {
           }
         })
       );
-      this.ws.send(
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -55,7 +71,7 @@ class BitstampMain extends Component {
           }
         })
       );
-      this.ws.send(
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -63,7 +79,7 @@ class BitstampMain extends Component {
           }
         })
       );
-      this.ws.send(
+      websocket.send(
         JSON.stringify({
           event: "bts:subscribe",
           data: {
@@ -73,7 +89,7 @@ class BitstampMain extends Component {
       );
     });
 
-    this.ws.on("message", data => {
+    websocket.on("message", data => {
       const lastdata = JSON.parse(data);
       if (lastdata.data && !isNaN(lastdata.data.price)) {
         this.handleUpdate(lastdata.data, this.detectCoin(lastdata.channel));
@@ -87,16 +103,8 @@ class BitstampMain extends Component {
     return coin;
   }
 
-  componentWillUnmount() {
-    this.channel.unbind();
-    this.channelUsd.unbind();
-    this.channelLtc.unbind();
-    this.channelEth.unbind();
-    this.channelLtcUsd.unbind();
-    this.channelEthUsd.unbind();
-    this.pusherClient.unsubscribe();
-    this.pusherClient.disconnect();
-    this.ws.send(
+  unsubscribeChannels() {
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -104,7 +112,7 @@ class BitstampMain extends Component {
         }
       })
     );
-    this.ws.send(
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -112,7 +120,7 @@ class BitstampMain extends Component {
         }
       })
     );
-    this.ws.send(
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -120,7 +128,7 @@ class BitstampMain extends Component {
         }
       })
     );
-    this.ws.send(
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -128,7 +136,7 @@ class BitstampMain extends Component {
         }
       })
     );
-    this.ws.send(
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -136,7 +144,7 @@ class BitstampMain extends Component {
         }
       })
     );
-    this.ws.send(
+    websocket.send(
       JSON.stringify({
         event: "bts:unsubscribe",
         data: {
@@ -144,8 +152,11 @@ class BitstampMain extends Component {
         }
       })
     );
+  }
 
-    this.ws.terminate();
+  componentWillUnmount() {
+    console.log("cwum");
+    websocket.close();
   }
 
   handleUpdate = (data, coin) => {
