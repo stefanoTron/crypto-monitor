@@ -9,10 +9,10 @@ The macOS app for hodlers and occasional traders. Always have an eye on your inv
 </ul>
 <br>
 <p align="center">
-<img width="600" src="https://raw.githubusercontent.com/littletower/crypto-monitor/master/screen.png"/>
+<img width="600" src="https://raw.githubusercontent.com/stefanoTron/crypto-monitor/master/screen.png"/>
 </p>
 <p align="center">
-<a href="https://github.com/littletower/crypto-monitor/releases/download/1.0.0/Crypto.Monitor-1.0.0.dmg">Download Crypto Monitor</a>
+<a href="https://github.com/stefanoTron/crypto-monitor/releases/download/1.0.0/Crypto.Monitor-1.0.0.dmg">Download Crypto Monitor</a>
 </p>
 <br>
 <p align="center">Based on Electron and Next.js
