@@ -1,4 +1,6 @@
-This Repo is no longer maintained
+<h1>This repo is no longer maintained!</h1>
+
+
 <h1 align="center">Crypto Monitor</h1>
 
 <p align="center">
